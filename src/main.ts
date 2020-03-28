@@ -11,6 +11,7 @@ async function run(): Promise<void> {
       client_payload: core.getInput('github_client_payload')
     }
 
+    core.debug(JSON.stringify(inputs))
     switch (inputs.action) {
       case 'repository_dispatch':
         await actions.repositoryDispatch(
