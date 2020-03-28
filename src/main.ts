@@ -38,7 +38,7 @@ async function run(): Promise<void> {
               let owner = ownerRepo.split('/')[0]
               let repo = ownerRepo.split('/')[1]
 
-              console.log(`Owner: ${owner}: Repo: ${repo}: Result: ${rps.get(ownerRepo).result}`)
+              core.debug(`Owner: ${owner}: Repo: ${repo}: Result: ${rps.get(ownerRepo).result}`)
             })
           }
         } else {
@@ -49,7 +49,7 @@ async function run(): Promise<void> {
             let rp = new actions.RepositoryDispatch(owner, repo, inputs.token, inputs.event_type, inputs.client_payload)
             let result = rp.dispatch()
 
-            console.log(`Owner: ${owner}: Repo: ${repo}: Result: ${result}`)
+            core.debug(`Owner: ${owner}: Repo: ${repo}: Result: ${result}`)
           }
         }
         break
