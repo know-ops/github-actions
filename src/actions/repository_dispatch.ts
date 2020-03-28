@@ -84,8 +84,8 @@ export async function repositoryDispatch(
         event_type,
         client_payload
       )
-      const result = await rp.dispatch()
-      core.debug(`Owner: ${owner}: Repo: ${repo}: Result: ${result}`)
+      await rp.dispatch()
+      core.debug(`Owner: ${owner}: Repo: ${repo}: Result: ${rp.result}`)
     }
   }
 }
