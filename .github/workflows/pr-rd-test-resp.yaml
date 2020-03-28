@@ -1,7 +1,6 @@
-name: pr > results > action > repository_dispatch
+name: pr / results / action / repository_dispatch
 on:
   repository_dispatch:
-    types: [test_event]
 jobs:
   tests:
     runs-on: ubuntu-latest

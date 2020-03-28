@@ -1,4 +1,4 @@
-name: pr > merge > release
+name: pr / merge / release
 
 on:
   pull_request:
