@@ -42,7 +42,7 @@ export async function repositoryDispatch(
   core.debug(
     `Token: ${token}: Repos: ${repos} (${repos.length}): Event Type: ${event_type}: Client Payload: ${client_payload}`
   )
-  if (repos.length > 0) {
+  if (repos[0]) {
     core.debug('Creating multiple repository dispatches')
     const rps = new Map()
     const promises: string[] = []
