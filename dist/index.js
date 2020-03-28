@@ -2030,6 +2030,7 @@ function run() {
                 event_type: core.getInput('github_event_type'),
                 client_payload: core.getInput('github_client_payload')
             };
+            core.debug(JSON.stringify(inputs));
             switch (inputs.action) {
                 case 'repository_dispatch':
                     yield actions.repositoryDispatch(inputs.token, inputs.repos.split(' '), inputs.event_type, inputs.client_payload);
@@ -7413,12 +7414,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const core = __importStar(__webpack_require__(470));
 const github = __importStar(__webpack_require__(469));
 class GithubBase {
     constructor(owner, repo, token) {
         this.owner = owner;
         this.repo = repo;
         this.token = token;
+        core.debug(`Owner: ${owner}: Repo: ${repo}: Token: ${token}`);
         this.octokit = new github.GitHub(token);
     }
 }
@@ -8497,7 +8500,9 @@ class RepositoryDispatch extends base_1.GithubBase {
 }
 function repositoryDispatch(token, repos, event_type, client_payload) {
     return __awaiter(this, void 0, void 0, function* () {
+        core.debug(`Token: ${token}: Repos: ${repos}: Event Type: ${event_type}: Client Payload: ${client_payload}`);
         if (repos) {
+            core.debug('Creating multiple repository dispatches');
             const rps = new Map();
             const promises = [];
             for (const or of repos) {
@@ -8505,6 +8510,7 @@ function repositoryDispatch(token, repos, event_type, client_payload) {
                 const owner = ownerRepo.split('/')[0];
                 const repo = ownerRepo.split('/')[1];
                 token = or.split(':')[1];
+                core.debug(`Owner: ${owner}: Repo: ${repo}`);
                 rps.set(ownerRepo, new RepositoryDispatch(owner, repo, token, event_type, client_payload));
                 promises.push(rps.get(ownerRepo).dispatch());
             }
@@ -8519,10 +8525,12 @@ function repositoryDispatch(token, repos, event_type, client_payload) {
             }
         }
         else {
+            core.debug('Creating repository dispatch');
             const ownerRepo = process.env.GITHUB_REPOSITORY;
             if (ownerRepo) {
                 const owner = ownerRepo.split('/')[0];
                 const repo = ownerRepo.split('/')[1];
+                core.debug(`Owner: ${owner}: Repo: ${repo}`);
                 const rp = new RepositoryDispatch(owner, repo, token, event_type, client_payload);
                 const result = yield rp.dispatch();
                 core.debug(`Owner: ${owner}: Repo: ${repo}: Result: ${result}`);

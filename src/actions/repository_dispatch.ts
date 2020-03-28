@@ -39,7 +39,11 @@ export async function repositoryDispatch(
   event_type: string,
   client_payload: string
 ): Promise<void> {
+  core.debug(
+    `Token: ${token}: Repos: ${repos}: Event Type: ${event_type}: Client Payload: ${client_payload}`
+  )
   if (repos) {
+    core.debug('Creating multiple repository dispatches')
     const rps = new Map()
     const promises: string[] = []
     for (const or of repos) {
@@ -47,6 +51,7 @@ export async function repositoryDispatch(
       const owner = ownerRepo.split('/')[0]
       const repo = ownerRepo.split('/')[1]
       token = or.split(':')[1]
+      core.debug(`Owner: ${owner}: Repo: ${repo}`)
       rps.set(
         ownerRepo,
         new RepositoryDispatch(owner, repo, token, event_type, client_payload)
@@ -65,10 +70,12 @@ export async function repositoryDispatch(
       }
     }
   } else {
+    core.debug('Creating repository dispatch')
     const ownerRepo = process.env.GITHUB_REPOSITORY
     if (ownerRepo) {
       const owner = ownerRepo.split('/')[0]
       const repo = ownerRepo.split('/')[1]
+      core.debug(`Owner: ${owner}: Repo: ${repo}`)
       const rp = new RepositoryDispatch(
         owner,
         repo,
