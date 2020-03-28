@@ -8490,6 +8490,7 @@ class RepositoryDispatch extends base_1.GithubBase {
                 client_payload: JSON.parse(this.clientPayload)
             })
                 .then(({ status }) => {
+                core.debug(`Status: ${status}`);
                 this.status = 0;
                 this.result = status;
                 return status;
