@@ -3,6 +3,8 @@ on: # rebuild any PRs
   pull_request:
     branches:
     - master
+    paths:
+    - src/actions/repository_dispatch.ts
 
 jobs:
   build: # make sure build/ci work properly

@@ -8501,7 +8501,7 @@ class RepositoryDispatch extends base_1.GithubBase {
 function repositoryDispatch(token, repos, event_type, client_payload) {
     return __awaiter(this, void 0, void 0, function* () {
         core.debug(`Token: ${token}: Repos: ${repos}: Event Type: ${event_type}: Client Payload: ${client_payload}`);
-        if (repos) {
+        if (repos.length > 0) {
             core.debug('Creating multiple repository dispatches');
             const rps = new Map();
             const promises = [];
