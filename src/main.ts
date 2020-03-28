@@ -47,7 +47,7 @@ async function run(): Promise<void> {
             let owner = ownerRepo.split('/')[0]
             let repo = ownerRepo.split('/')[1]
             let rp = new actions.RepositoryDispatch(owner, repo, inputs.token, inputs.event_type, inputs.client_payload)
-            let result = rp.dispatch()
+            let result = await rp.dispatch()
 
             core.debug(`Owner: ${owner}: Repo: ${repo}: Result: ${result}`)
           }
