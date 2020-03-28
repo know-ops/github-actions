@@ -1,0 +1,14 @@
+name: pr > tests > typescript
+on: # rebuild any PRs
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  build: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        npm install
+        npm run all
