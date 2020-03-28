@@ -1,0 +1,14 @@
+'@typescript/action':
+  - 'src/actions/*.ts'
+
+'@typescript/test':
+  - '__tests__/**/*.ts'
+
+'@typescript/lib':
+  - 'src/**/*.ts'
+
+'@yaml/action':
+  - 'action.yaml'
+
+'@yaml/workflow':
+  - '.github/workflows/*.yaml'
