@@ -24,6 +24,7 @@ class RepositoryDispatch extends GithubBase {
         client_payload: JSON.parse(this.clientPayload)
       })
       .then(({status}) => {
+        core.debug(`Status: ${status}`)
         this.status = 0
         this.result = status
         return status
