@@ -16,7 +16,7 @@ class RepositoryDispatch extends GithubBase {
   }
 
   async dispatch(): Promise<number> {
-    this.octokit.repos
+    await this.octokit.repos
       .createDispatchEvent({
         owner: this.owner,
         repo: this.repo,

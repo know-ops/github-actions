@@ -8482,7 +8482,7 @@ class RepositoryDispatch extends base_1.GithubBase {
     }
     dispatch() {
         return __awaiter(this, void 0, void 0, function* () {
-            this.octokit.repos
+            yield this.octokit.repos
                 .createDispatchEvent({
                 owner: this.owner,
                 repo: this.repo,
