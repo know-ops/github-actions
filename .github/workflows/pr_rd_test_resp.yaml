@@ -1,4 +1,4 @@
-name: Repository Dispatch
+name: pr > results > action > repository_dispatch
 on:
   repository_dispatch:
     types: [test_event]
