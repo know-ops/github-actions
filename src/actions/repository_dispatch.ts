@@ -40,7 +40,7 @@ export async function repositoryDispatch(
   client_payload: string
 ): Promise<void> {
   core.debug(
-    `Token: ${token}: Repos: ${repos}: Event Type: ${event_type}: Client Payload: ${client_payload}`
+    `Token: ${token}: Repos: ${repos} (${repos.length}): Event Type: ${event_type}: Client Payload: ${client_payload}`
   )
   if (repos.length > 0) {
     core.debug('Creating multiple repository dispatches')
