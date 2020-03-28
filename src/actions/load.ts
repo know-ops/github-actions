@@ -1,3 +1,3 @@
-import {RepositoryDispatch} from './repository_dispatch'
+import {repositoryDispatch} from './repository_dispatch'
 
-export {RepositoryDispatch}
+export {repositoryDispatch}
