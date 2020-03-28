@@ -1,10 +1,27 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: Github Actions for Github Actions
+author: Know Ops <team@know-ops.com>
+description: Simplified Git Tasks for use with Github Actions workflows.
+branding:
+  color: purple
+  icon: git-branch
+
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  github_action:
+    description: "Which Github Action to Perform"
+    required: true
+  github_token:
+    description: "Github Token to use if needed"
+    required: false
+  github_repos:
+    description: "Repositories (and associated tokens) for Github Actions"
+    required: false
+  github_event_type:
+    description: "Event type"
+    required: false
+  github_client_payload:
+    description: "Payload for repo_dispatch action"
+    required: false
+
 runs:
   using: 'node12'
   main: 'dist/index.js'
