@@ -12,52 +12,18 @@ async function run(): Promise<void> {
     }
 
     switch (inputs.action) {
-      case "repository_dispatch":
-        
-        if (inputs.repos) {
-          var rps = new Map()
-          var promises = new Array()
-          let repos = inputs.repos.split(' ')
-
-          repos.forEach(or => {
-            let ownerRepo = or.split(':')[0]
-            let owner = ownerRepo.split('/')[0]
-            let repo = ownerRepo.split('/')[1]
-            let token = or.split(':')[1]
-
-            rps.set(ownerRepo, new actions.RepositoryDispatch(owner, repo, token, inputs.event_type, inputs.client_payload))
-
-            promises.push(rps.get(ownerRepo).dispatch())
-          })
-
-          if (promises) { 
-            Promise.all(promises)
-
-            repos.forEach(or => {
-              let ownerRepo = or.split(':')[0]
-              let owner = ownerRepo.split('/')[0]
-              let repo = ownerRepo.split('/')[1]
-
-              core.debug(`Owner: ${owner}: Repo: ${repo}: Result: ${rps.get(ownerRepo).result}`)
-            })
-          }
-        } else {
-          let ownerRepo = process.env.GITHUB_REPOSITORY
-          if (ownerRepo) {
-            let owner = ownerRepo.split('/')[0]
-            let repo = ownerRepo.split('/')[1]
-            let rp = new actions.RepositoryDispatch(owner, repo, inputs.token, inputs.event_type, inputs.client_payload)
-            let result = await rp.dispatch()
-
-            core.debug(`Owner: ${owner}: Repo: ${repo}: Result: ${result}`)
-          }
-        }
+      case 'repository_dispatch':
+        await actions.repositoryDispatch(
+          inputs.token,
+          inputs.repos.split(' '),
+          inputs.event_type,
+          inputs.client_payload
+        )
         break
-    
-      default:
-        break;
-    }
 
+      default:
+        break
+    }
   } catch (error) {
     core.setFailed(error.message)
   }
