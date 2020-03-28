@@ -8533,8 +8533,8 @@ function repositoryDispatch(token, repos, event_type, client_payload) {
                 const repo = ownerRepo.split('/')[1];
                 core.debug(`Owner: ${owner}: Repo: ${repo}`);
                 const rp = new RepositoryDispatch(owner, repo, token, event_type, client_payload);
-                const result = yield rp.dispatch();
-                core.debug(`Owner: ${owner}: Repo: ${repo}: Result: ${result}`);
+                yield rp.dispatch();
+                core.debug(`Owner: ${owner}: Repo: ${repo}: Result: ${rp.result}`);
             }
         }
     });
