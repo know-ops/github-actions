@@ -1,11 +1,10 @@
-name: pr / testing / action / repository_dispatch
+name: pr / tests / action / repository_dispatch
 on: # rebuild any PRs
   pull_request:
     branches:
     - master
     paths:
     - src/actions/repository_dispatch.ts
-    - .github/workflows/pr-rd-test.yaml
 
 jobs:
   build: # make sure build/ci work properly
@@ -14,7 +13,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: ./
       with:
-        github_token: ${{ secrets.GITHUB_ACTIONS_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         github_action: repository_dispatch
         github_event_type: test_event
         github_client_payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
