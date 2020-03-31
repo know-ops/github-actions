@@ -1,0 +1,41 @@
+name: repository_dispatch / dependency_update_workflow
+on:
+  repository_dispatch:
+    types: [ dependency_update_workflow ]
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        id: checkout
+        uses: actions/checkout@v2
+      
+      - name: Edit Workflows
+        id: edit-workflows
+        run: |
+          TAG_REGEX='v[0-9]*.[0-9]*.[0-9]*'
+
+          find .github/workflows -name *.yaml -exec sed -i "s/${GITHUB_REPO}@${TAG_REGIX}/${GITHUB_REPO}@${GITHUB_TAG}/" {} \+
+
+        env:
+          GITHUB_REPO: ${{ github.event.client_payload.repo }}
+          GITHUB_TAG: ${{ github.event.client_payload.tag }}
+
+      - name: Create / Update Chore Pull Request
+        id: chore-pr
+        # if updating existing PR
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secretes.GITHUB_ACTIONS_TOKEN }}
+          commit-message: "[chore] updated .github/workflows file(s)"
+          title: "[chore] update Github Action workflows"
+          body: |
+            repo: ${{ github.event.client_payload.repo }}
+            tag: ${{ github.event.client_payload.tag }}
+            actions: 
+                
+            ${{ github.event.client_payload.actions }}
+
+          assignees: stormmore
+          reviewers: stormmore
+          branch: feature/dependency_updates_chore
