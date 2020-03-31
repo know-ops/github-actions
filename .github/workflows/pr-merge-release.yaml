@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-    - 'dist/index.js'
+      - 'dist/index.js'
 
 jobs:
   build:
@@ -17,4 +17,4 @@ jobs:
         with:
           release_branch: master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_ACTIONS_TOKEN }}
