@@ -26,7 +26,7 @@ jobs:
         # if updating existing PR
         uses: peter-evans/create-pull-request@v2
         with:
-          token: ${{ secretes.GITHUB_ACTIONS_TOKEN }}
+          token: ${{ secrets.GITHUB_ACTIONS_TOKEN }}
           commit-message: "[chore] updated .github/workflows file(s)"
           title: "[chore] update Github Action workflows"
           body: |
