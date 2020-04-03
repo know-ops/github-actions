@@ -1,0 +1,22 @@
+name: pr / testing / typescript
+on: # rebuild any PRs
+  pull_request:
+    branches:
+    - master
+    paths:
+    - '**/*.ts'
+    - 'dist/index.js'
+
+jobs:
+  build-and-test: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+        npm install
+        npm run all
+    - name: sonarcloud-scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

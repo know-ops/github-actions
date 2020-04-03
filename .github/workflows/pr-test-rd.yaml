@@ -1,4 +1,4 @@
-name: pr > tests > action > repository_dispatch
+name: pr / tests / action / repository_dispatch
 on: # rebuild any PRs
   pull_request:
     branches:
